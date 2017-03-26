@@ -5,21 +5,23 @@
   <table>
     <thead>
       <tr>
-        <td>Title</td>
-        <td>Content</td>
-        <td>Timestamp</td>
-        <td>Update</td>
-        <td>ID</td>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Timestamp</th>
+        <th>Update</th>
+        <th>ID</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       {% for obj in object_list %}
       <tr>
-        <th>{{obj.title}}</th>
-        <th>{{obj.content}}</th>
-        <th>{{obj.timestamp}}</th>
-        <th>{{obj.updated}}</th>
-        <th>{{obj.id}}</th>
+        <td>{{obj.title}}</td>
+        <td>{{obj.content}}</td>
+        <td>{{obj.timestamp}}</td>
+        <td>{{obj.updated}}</td>
+        <td>{{obj.id}}</td>
+        <td><a href="/posts/detail/{{obj.id}}">Delete</a> || <a href="/posts/detail/{{obj.id}}">Update</a></th>
       </tr>
       {% endfor %}
     </tbody>
