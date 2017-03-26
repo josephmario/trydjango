@@ -2,5 +2,27 @@
 <html>
 <body>
   <h1>{{title}} is working</h1>
+  <table>
+    <thead>
+      <tr>
+        <td>Title</td>
+        <td>Content</td>
+        <td>Timestamp</td>
+        <td>Update</td>
+        <td>ID</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+      <tr>
+        <th>{{obj.title}}</th>
+        <th>{{obj.content}}</th>
+        <th>{{obj.timestamp}}</th>
+        <th>{{obj.updated}}</th>
+        <th>{{obj.id}}</th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </body>
 </html>
