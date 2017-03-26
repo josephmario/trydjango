@@ -8,7 +8,15 @@ def post_detail(request):
     return HttpResponse("<h1>Detail Here</h1>")
 
 def post_list(request):
-    return render(request, 'index.html', {})
+    if request.user.is_authenticated():
+        context = {
+            "title": "My User List"
+        }
+    else:
+        context = {
+            "title": "List"
+        }
+    return render(request, 'index.html', context)
     #return HttpResponse("<h1>List Here</h1>")
 
 def post_update(request):
