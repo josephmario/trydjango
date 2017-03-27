@@ -20,14 +20,6 @@ def post_list(request):
         'object_list': queryset,
         'title': 'List'
     }
-    # if request.user.is_authenticated():
-    #     context = {
-    #         "title": "My User List"
-    #     }
-    # else:
-    #     context = {
-    #         "title": "List"
-    #     }
     return render(request, 'index.html', context)
 
 def post_update(request, id=None):
