@@ -1,11 +1,16 @@
-<!--DOCTYPE html -->
 <html>
-<body>
-  <h1>form</h1>
-  <form method='post'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Create Post' />
-  </form>
-</body>
+   <body>
+      <p>{{ error }}</p>
+      <form name = "form" action = "/posts/create/"
+         method = "POST" >{% csrf_token %}
+      <br>
+        <input type = "text" placeholder = "Title" name = "title" />
+      <br>
+        <input type = "text" placeholder = "Content" name = "content" />
+      <br>
+        <button type = "submit" value = "Login" >
+          <strong>Login</strong>
+        </button>
+      </form>
+   </body>
 </html>

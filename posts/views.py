@@ -1,23 +1,32 @@
+#-*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Post
-from .forms import PostForm
 # Create your views here.
+
 def post_create(request):
-    form = PostForm(request.POST or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        print('save')
-        return HttpResponseRedirect("/posts/list")
-    # if request.method == "POST":
-    #     print(request.POST)
+    error = ''
+    try:
+        if request.method == "POST":
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            if title == '':
+                error = 'title is requried'
+            elif content == '':
+                error = 'content is requried'
+            elif title == '' and content == '':
+                error = 'All fields are requried'
+            else:
+                Post.objects.create(title=title,content=content)
+                return HttpResponseRedirect("/posts/list")
+    except Exception as error:
+        print(error)
     context = {
-        "form":form,
+        "error": error
     }
-    # return HttpResponse("<h1>Create Here</h1>")
     return render(request, 'post_create.html', context)
+
 def post_detail(request, id=None):
     instance = get_object_or_404(Post, id=id)
     context = {
@@ -35,12 +44,28 @@ def post_list(request):
     return render(request, 'index.html', context)
 
 def post_update(request, id=None):
+    error = ''
+    try:
+        if request.method == "POST":
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            if title == '':
+                error = 'title is requried'
+            elif content == '':
+                error = 'content is requried'
+            elif title == '' and content == '':
+                error = 'All fields are requried'
+            else:
+                Post.objects.filter(id=id).update(title=title, content=content)
+                return HttpResponseRedirect("/posts/list")
+    except Exception as error:
+        print(error)
     instance = get_object_or_404(Post, id=id)
     context = {
+        "error": error,
         "title":"Details",
         "instance":instance
     }
-
     return render(request, 'post_update.html', context)
 
 def post_delete(request, id=None):

@@ -2,10 +2,14 @@
 <html>
 <body>
   <h1>Update details</h1>
-    <p>Title:<input type="text" value="{{instance.title}}"/></p>
-    <p>Content:<input type="text" value="{{instance.content}}"/></p>
-    <p>Timestamp:<input type="text" value="{{instance.timestamp}}"/></p>
-    <p>Update:<input type="text" value="{{instance.updated}}"/></p>
-    <p><button>Submit</button>||<button>cancel</button></p>
+    <p>{{error}}</p>
+    <form name = "form" action = "/posts/update/{{instance.id}}/"
+       method = "POST" >{% csrf_token %}
+      <p>Title:<input type="text" value="{{instance.title}}" name = "title"/></p>
+      <p>Content:<input type="text" value="{{instance.content}}" name = "content"/></p>
+      <p>Timestamp:<input type="text" value="{{instance.timestamp}}" readonly="True"/></p>
+      <p>Update:<input type="text" value="{{instance.updated}}" readonly="True"/></p>
+      <p><button>Submit</button></p>
+    </form>
 </body>
 </html>
