@@ -2,7 +2,13 @@
 <html>
 <body>
   <h1>Update details</h1>
-    <p>{{error}}</p>
+    {% if messages %}
+       <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+       </ul>
+     {% endif %}
     <form name = "form" action = "/posts/update/{{instance.id}}/"
        method = "POST" >{% csrf_token %}
       <p>Title:<input type="text" value="{{instance.title}}" name = "title"/></p>
