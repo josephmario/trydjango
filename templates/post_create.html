@@ -1,22 +1,15 @@
-<html>
-   <body>
-     {% if messages %}
-        <ul class="messages">
-           {% for message in messages %}
-           <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-           {% endfor %}
-        </ul>
-      {% endif %}
-      <form name = "form" action = "/posts/create/"
+{% extends "base.html" %}
+{% block content%}
+<h1>form</h1>
+<form name = "form" action = "/posts/create/"
          method = "POST" >{% csrf_token %}
-      <br>
-        <input type = "text" placeholder = "Title" name = "title" />
-      <br>
-        <input type = "text" placeholder = "Content" name = "content" />
-      <br>
-        <button type = "submit" value = "Login" >
-          <strong>Login</strong>
-        </button>
-      </form>
-   </body>
-</html>
+  <br>
+    <input type = "text" placeholder = "Title" name = "title" />
+  <br>
+    <input type = "text" placeholder = "Content" name = "content" />
+  <br>
+    <button type = "submit" value = "Login" >
+      <strong>Login</strong>
+    </button>
+</form>
+{% endblock content%}

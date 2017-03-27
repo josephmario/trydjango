@@ -1,14 +1,6 @@
-<!--DOCTYPE html -->
-<html>
-<body>
-  <h1>Update details</h1>
-    {% if messages %}
-       <ul class="messages">
-          {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-       </ul>
-     {% endif %}
+{% extends "base.html" %}
+{% block content%}
+<h1>Update details</h1>
     <form name = "form" action = "/posts/update/{{instance.id}}/"
        method = "POST" >{% csrf_token %}
       <p>Title:<input type="text" value="{{instance.title}}" name = "title"/></p>
@@ -17,5 +9,4 @@
       <p>Update:<input type="text" value="{{instance.updated}}" readonly="True"/></p>
       <p><button>Submit</button></p>
     </form>
-</body>
-</html>
+{% endblock content%}

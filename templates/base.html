@@ -1,0 +1,38 @@
+<!--DOCTYPE html -->
+<html>
+<body>
+{% include "messages_display.html" %}
+<div class="container">
+  {% block content %}
+  <h1>{{title}} is working</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Timestamp</th>
+        <th>Update</th>
+        <th>ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+      <tr>
+        <!-- <td><a href='{% url "posts:post_detail" id=obj.id %}'>{{obj.title}}</a></td> -->
+        <!-- OR -->
+        {% url 'posts:post_detail' id=obj.id %}
+        <td><a href='{{obj.get_detail_url}}'>{{obj.title}}</a></td>
+        <td>{{obj.content}}</td>
+        <td>{{obj.timestamp}}</td>
+        <td>{{obj.updated}}</td>
+        <td>{{obj.id}}</td>
+        <td><a href='{% url "posts:post_delete" id=obj.id %}'>Delete</a> || <a href='{% url "posts:post_update" id=obj.id %}'>Update</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock content %}
+</div>
+</body>
+</html>
