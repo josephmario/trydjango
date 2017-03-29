@@ -3,7 +3,9 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from .models import Post
+from .models import Post, History
+
+import csv
 # Create your views here.
 
 def post_create(request):
@@ -78,3 +80,27 @@ def post_delete(request, id=None):
     instance.delete()
     messages.success(request, 'Successfully Deleted')
     return HttpResponseRedirect("/posts/list")
+
+def status(request):
+    if request.method == "GET":
+        query = request.GET.get('q')
+        queryhistory = History.objects.filter(status__icontains=query)
+    else:
+        queryhistory = History.objects.all()
+    context = {
+        "history":queryhistory
+    }
+    return render(request, 'view_status.html', context)
+
+def generate_csv(request):
+    output = []
+    response = HttpResponse (content_type='text/csv')
+    writer = csv.writer(response)
+    query_set = History.objects.filter(status__icontains='Failed to deliver')
+    #Header
+    writer.writerow(['order', 'status', 'status_updated_at', 'created_at', 'updated_at'])
+    for history in query_set:
+        output.append([history.order, history.status, history.status_updated_at, history.created_at, history.updated_at])
+    #CSV Data
+    writer.writerows(output)
+    return response

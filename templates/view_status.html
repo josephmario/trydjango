@@ -1,0 +1,39 @@
+<!--DOCTYPE html -->
+<html>
+<body>
+<div class="container">
+  <h1>{{title}} is working</h1>
+  <form method="GET" action="/posts/view">
+    <input type="text" name="q" placeholder="search status" />
+    <input type="submit" value="click" />
+  </form>
+  <a href="/posts/generate/">generate</a>
+  <table>
+    <thead>
+      <tr>
+        <th>order</th>
+        <th>status</th>
+        <th>status_updated_at</th>
+        <th>created_at</th>
+        <th>updated_at</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for obj in history %}
+      <tr>
+        <!-- <td><a href='{% url "posts:post_detail" id=obj.id %}'>{{obj.title}}</a></td> -->
+        <!-- OR -->
+        {% url 'posts:post_detail' id=obj.id %}
+        <td><a href='{{obj.get_detail_url}}'>{{obj.order}}</a></td>
+        <td>{{obj.status}}</td>
+        <td>{{obj.status_updated_at}}</td>
+        <td>{{obj.created_at}}</td>
+        <td>{{obj.updated_at}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
